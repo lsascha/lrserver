@@ -40,7 +40,7 @@ module.exports = function (key) {
 'use strict';
 var at = require('./_string-at')(true);
 
- // `AdvanceStringIndex` abstract operation
+ // 'AdvanceStringIndex' abstract operation
 // https://tc39.github.io/ecma262/#sec-advancestringindex
 module.exports = function (S, index, unicode) {
   return index + (unicode ? at(S, index).length : 1);
@@ -233,7 +233,7 @@ $export.P = 8;   // proto
 $export.B = 16;  // bind
 $export.W = 32;  // wrap
 $export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
+$export.R = 128; // real proto method for 'library'
 module.exports = $export;
 
 },{"./_core":8,"./_ctx":10,"./_global":22,"./_hide":24,"./_redefine":54}],17:[function(require,module,exports){
@@ -499,7 +499,7 @@ var $iterCreate = require('./_iter-create');
 var setToStringTag = require('./_set-to-string-tag');
 var getPrototypeOf = require('./_object-gpo');
 var ITERATOR = require('./_wks')('iterator');
-var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
+var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o 'next'
 var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
 var VALUES = 'values';
@@ -658,7 +658,7 @@ var IE_PROTO = require('./_shared-key')('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
+// Create object with fake 'null' prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
   var iframe = require('./_dom-create')('iframe');
@@ -883,7 +883,7 @@ require('./_core').inspectSource = function (it) {
 var classof = require('./_classof');
 var builtinExec = RegExp.prototype.exec;
 
- // `RegExpExec` abstract operation
+ // 'RegExpExec' abstract operation
 // https://tc39.github.io/ecma262/#sec-regexpexec
 module.exports = function (R, S) {
   var exec = R.exec;
@@ -944,7 +944,7 @@ if (PATCH) {
       re[LAST_INDEX] = re.global ? match.index + match[0].length : lastIndex;
     }
     if (NPCG_INCLUDED && match && match.length > 1) {
-      // Fix browsers whose `exec` methods don't consistently return `undefined`
+      // Fix browsers whose 'exec' methods don't consistently return 'undefined'
       // for NPCG, like IE8. NOTE: This doesn' work for /(.?)?/
       // eslint-disable-next-line no-loop-func
       nativeReplace.call(match[0], reCopy, function () {
@@ -1363,14 +1363,14 @@ var regExpExec = require('./_regexp-exec-abstract');
 // @@match logic
 require('./_fix-re-wks')('match', 1, function (defined, MATCH, $match, maybeCallNative) {
   return [
-    // `String.prototype.match` method
+    // 'String.prototype.match' method
     // https://tc39.github.io/ecma262/#sec-string.prototype.match
     function match(regexp) {
       var O = defined(this);
       var fn = regexp == undefined ? undefined : regexp[MATCH];
       return fn !== undefined ? fn.call(regexp, O) : new RegExp(regexp)[MATCH](String(O));
     },
-    // `RegExp.prototype[@@match]` method
+    // 'RegExp.prototype[@@match]' method
     // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@match
     function (regexp) {
       var res = maybeCallNative($match, regexp, this);
@@ -1406,8 +1406,8 @@ var regExpExec = require('./_regexp-exec-abstract');
 var max = Math.max;
 var min = Math.min;
 var floor = Math.floor;
-var SUBSTITUTION_SYMBOLS = /\$([$&`']|\d\d?|<[^>]*>)/g;
-var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&`']|\d\d?)/g;
+var SUBSTITUTION_SYMBOLS = /\$([$&'']|\d\d?|<[^>]*>)/g;
+var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&'']|\d\d?)/g;
 
 var maybeToString = function (it) {
   return it === undefined ? it : String(it);
@@ -1416,7 +1416,7 @@ var maybeToString = function (it) {
 // @@replace logic
 require('./_fix-re-wks')('replace', 2, function (defined, REPLACE, $replace, maybeCallNative) {
   return [
-    // `String.prototype.replace` method
+    // 'String.prototype.replace' method
     // https://tc39.github.io/ecma262/#sec-string.prototype.replace
     function replace(searchValue, replaceValue) {
       var O = defined(this);
@@ -1425,7 +1425,7 @@ require('./_fix-re-wks')('replace', 2, function (defined, REPLACE, $replace, may
         ? fn.call(searchValue, O, replaceValue)
         : $replace.call(String(O), searchValue, replaceValue);
     },
-    // `RegExp.prototype[@@replace]` method
+    // 'RegExp.prototype[@@replace]' method
     // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@replace
     function (regexp, replaceValue) {
       var res = maybeCallNative($replace, regexp, this, replaceValue);
@@ -1458,7 +1458,7 @@ require('./_fix-re-wks')('replace', 2, function (defined, REPLACE, $replace, may
         var captures = [];
         // NOTE: This is equivalent to
         //   captures = result.slice(1).map(maybeToString)
-        // but for some reason `nativeSlice.call(result, 1, result.length)` (called in
+        // but for some reason 'nativeSlice.call(result, 1, result.length)' (called in
         // the slice polyfill when slicing native arrays) "doesn't work" in safari 9 and
         // causes a crash (https://pastebin.com/N21QzeQA) when trying to debug it.
         for (var j = 1; j < result.length; j++) captures.push(maybeToString(result[j]));
@@ -1493,7 +1493,7 @@ require('./_fix-re-wks')('replace', 2, function (defined, REPLACE, $replace, may
       switch (ch.charAt(0)) {
         case '$': return '$';
         case '&': return matched;
-        case '`': return str.slice(0, position);
+        case '` + "`" + `': return str.slice(0, position);
         case "'": return str.slice(tailPos);
         case '<':
           capture = namedCaptures[ch.slice(1, -1)];
@@ -1550,7 +1550,7 @@ require('./_fix-re-wks')('split', 2, function (defined, SPLIT, $split, maybeCall
     internalSplit = function (separator, limit) {
       var string = String(this);
       if (separator === undefined && limit === 0) return [];
-      // If `separator` is not a regex, use native split
+      // If 'separator' is not a regex, use native split
       if (!isRegExp(separator)) return $split.call(string, separator, limit);
       var output = [];
       var flags = (separator.ignoreCase ? 'i' : '') +
@@ -1559,7 +1559,7 @@ require('./_fix-re-wks')('split', 2, function (defined, SPLIT, $split, maybeCall
                   (separator.sticky ? 'y' : '');
       var lastLastIndex = 0;
       var splitLimit = limit === undefined ? MAX_UINT32 : limit >>> 0;
-      // Make `global` and avoid `lastIndex` issues by working with a copy
+      // Make 'global' and avoid 'lastIndex' issues by working with a copy
       var separatorCopy = new RegExp(separator.source, flags + 'g');
       var match, lastIndex, lastLength;
       while (match = regexpExec.call(separatorCopy, string)) {
@@ -1588,7 +1588,7 @@ require('./_fix-re-wks')('split', 2, function (defined, SPLIT, $split, maybeCall
   }
 
   return [
-    // `String.prototype.split` method
+    // 'String.prototype.split' method
     // https://tc39.github.io/ecma262/#sec-string.prototype.split
     function split(separator, limit) {
       var O = defined(this);
@@ -1597,7 +1597,7 @@ require('./_fix-re-wks')('split', 2, function (defined, SPLIT, $split, maybeCall
         ? splitter.call(separator, O, limit)
         : internalSplit.call(String(O), separator, limit);
     },
-    // `RegExp.prototype[@@split]` method
+    // 'RegExp.prototype[@@split]' method
     // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@split
     //
     // NOTE: This cannot be properly polyfilled in engines that don't support
@@ -1924,7 +1924,7 @@ $export($export.S + $export.F * !USE_NATIVE, 'Object', {
   getOwnPropertySymbols: $getOwnPropertySymbols
 });
 
-// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// Chrome 38 and 39 'Object.getOwnPropertySymbols' fails on primitives
 // https://bugs.chromium.org/p/v8/issues/detail?id=3443
 var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
 
