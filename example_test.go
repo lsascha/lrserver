@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/jaschaephraim/lrserver"
+	"github.com/lsascha/lrserver"
 	"gopkg.in/fsnotify.v1"
 )
 
