@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/jaschaephraim/lrserver"
+	"github.com/lsascha/lrserver"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
